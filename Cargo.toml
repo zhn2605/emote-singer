@@ -1,0 +1,9 @@
+[package]
+name = "emote-singer"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cpal = "0.17.3"
+ringbuf = "0.4.8"
+thiserror = "2.0.18"
