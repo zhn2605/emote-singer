@@ -28,8 +28,14 @@ fn main() {
 
     println!("Default output device: {} {}", audio_handler.device.description().unwrap().name(), audio_handler.device.id().unwrap());
 
-    audio_handler.start().unwrap();
+    audio_handler.play().unwrap();
 
+    loop {
+        if let Ok(feature) = audio_handler.rx.recv() {
+            println!("RMS: {:.4}, ZCR: {:.4}", feature.rms, feature.zcr);
+        }
+    }
+    
     
 }
 

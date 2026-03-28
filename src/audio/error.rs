@@ -20,6 +20,9 @@ pub enum AudioError {
     #[error("{0}")]
     BuildStream(#[from] cpal::BuildStreamError),
 
-    #[error("")]
-    PlayStream(#[from] cpal::PlayStreamError)
+    #[error("{0}")]
+    PlayStream(#[from] cpal::PlayStreamError),
+
+    #[error("{0}")]
+    PauseStream(#[from] cpal::PauseStreamError)
 }
