@@ -5,7 +5,6 @@ pub struct AudioFeature {
 }
 
 impl AudioFeature {
-    // TODO: calculate features
     pub fn calculate(&mut self, _samples: &[f32]) {
         self.rms = (_samples
             .iter()

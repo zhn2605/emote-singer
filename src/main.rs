@@ -14,7 +14,7 @@ fn main() {
     let devices = match audio_handler.return_devices() {
         Ok(devices) => devices,
         Err(e) => {
-            eprintln!("Failed to retrieve output devices: {}", e);
+            eprintln!("Failed to retrieve input devices: {}", e);
             return;
         }
     };
@@ -23,10 +23,10 @@ fn main() {
         let device_description = device.description().unwrap();
         let device_name = device_description.name();
         let device_id = device.id().unwrap();
-        println!("Output device: {} {}", device_name, device_id);
+        println!("Input device: {} {}", device_name, device_id);
     }
 
-    println!("Default output device: {} {}", audio_handler.device.description().unwrap().name(), audio_handler.device.id().unwrap());
+    println!("Default Input device: {} {}", audio_handler.device.description().unwrap().name(), audio_handler.device.id().unwrap());
 
     audio_handler.play().unwrap();
 
@@ -35,7 +35,5 @@ fn main() {
             println!("RMS: {:.4}, ZCR: {:.4}", feature.rms, feature.zcr);
         }
     }
-    
-    
 }
 
