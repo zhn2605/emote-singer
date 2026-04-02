@@ -1,4 +1,4 @@
-use std::{process::{Child, Command}, sync::mpsc, thread, time::Duration};
+use std::{process::Command, sync::mpsc, thread, time::Duration};
 
 use cpal::{Device, Devices, OutputDevices, Stream, traits::{DeviceTrait, HostTrait, StreamTrait}};
 use ringbuf::{HeapRb, traits::{Consumer, Producer, Split}};
