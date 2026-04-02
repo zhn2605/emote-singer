@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, serde::Serialize)]
 pub struct AudioFeature {
     pub rms: f32,
     pub zcr: f32
@@ -13,7 +13,7 @@ impl AudioFeature {
             .sqrt();
         
         // zero crossing rate currently for simplisitc impl
-        // usemore advanced for future use
+        // usemore advanced for future use (YIN Algorithm)
         self.zcr = _samples
             .windows(2)
             .map(|w| (w[0] * w[1] < 0.0) as u32)

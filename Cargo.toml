@@ -1,9 +1,0 @@
-[package]
-name = "emote-singer"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-cpal = {version="0.17.3", features=["jack"]}
-ringbuf = "0.4.8"
-thiserror = "2.0.18"
