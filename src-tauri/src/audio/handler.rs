@@ -7,20 +7,23 @@ use crate::audio::{error::AudioError, feature::AudioFeature};
 
 pub struct AudioHandler {
     pub device: Device,
-    pub rx: mpsc::Receiver<AudioFeature>,
     stream: Stream,
 }
 
 impl AudioHandler {
-    pub fn new() -> Result<Self, AudioError> {
+    pub fn new() -> Result<(Self, mpsc::Receiver<AudioFeature>), AudioError> {
         Self::builder(None)
     }
 
-    pub fn new_with_device(device_name: &str) -> Result<Self, AudioError> {
+    pub fn new_with_device(
+        device_name: &str,
+    ) -> Result<(Self, mpsc::Receiver<AudioFeature>), AudioError> {
         Self::builder(Some(device_name))
     }
 
-    pub fn builder(device_name: Option<&str>) -> Result<Self, AudioError> {
+    pub fn builder(
+        device_name: Option<&str>,
+    ) -> Result<(Self, mpsc::Receiver<AudioFeature>), AudioError> {
         let host = cpal::host_from_id(cpal::HostId::Jack)
             .map_err(|_| AudioError::NoDevice)?;
 
@@ -69,12 +72,16 @@ impl AudioHandler {
                 let count = consumer.pop_slice(&mut buf);
                 if count > 0 {
                     feature.calculate(&buf[..count]);
-                    tx.send(feature).ok();
+                    if tx.send(feature).is_err() {
+                        break; // receiver dropped
+                    }
+                } else {
+                    thread::sleep(Duration::from_millis(5));
                 }
             }
         });
 
-        Ok(Self { device, stream, rx })
+        Ok((Self { device, stream }, rx))
     }
 
     fn link_monitor_to_cpal(monitor_sink: &str) {
