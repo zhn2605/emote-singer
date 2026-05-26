@@ -12,9 +12,16 @@
   "app": {
     "windows": [
       {
-        "title": "emote-singer",
-        "width": 800,
-        "height": 600
+        "label": "emote-pip",
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "hiddenTitle": true,
+        "maximizable": false,
+        "minimizable": false,
+        "decorations": false,
+        "width": 400,
+        "height": 400,
+        "transparent": true
       }
     ],
     "security": {

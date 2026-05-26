@@ -24,5 +24,8 @@ pub enum AudioError {
     PlayStream(#[from] cpal::PlayStreamError),
 
     #[error("{0}")]
-    PauseStream(#[from] cpal::PauseStreamError)
+    PauseStream(#[from] cpal::PauseStreamError),
+
+    #[error("Audio thread failed to initialize")]
+    InitFailed,
 }
